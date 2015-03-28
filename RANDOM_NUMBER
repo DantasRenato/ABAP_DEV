@@ -1,0 +1,28 @@
+
+REPORT z_rnd_number.
+
+DATA: v_number TYPE i.
+
+*You must run 5 times, just to make sure your number will be really a random number.
+*If you try to run less than 5 times, you may take the same number all the times.
+DO 5 TIMES.
+*Function that generates the random number, yes, it's a SAP Function, easier than you though, right? haha
+CALL FUNCTION 'RANDOM_I4'
+  EXPORTING
+    rnd_min   = 0
+    rnd_max   = 100
+  IMPORTING
+  *Here you set you variable that will receive the random number.
+    rnd_value = v_number.
+
+ENDDO.
+
+
+IF sy-subrc <> 0.
+
+  MESSAGE 'ERROR WHILE GET THE NUMBER' TYPE 'S' DISPLAY LIKE 'E'.
+
+ENDIF.
+
+
+WRITE v_number.
